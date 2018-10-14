@@ -8,3 +8,9 @@ things to consider:
 3. input and output
     -input and output through files? easier to automate but file-io sucks ass in java
     -command line? harder to automate but easier to manage and also sucks ass in java
+4. copying data
+    -copy data before each sort? twice the memory usage but more efficient time-wise
+    -reconstruct data before each usage? less efficient time-wise but less memory usage
+5. what type of data
+    -one data type (i.e. ints)? only need to implement one sort method
+    -multiple data types? need multiple sorting methods but more robust data in the end

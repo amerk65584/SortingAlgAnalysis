@@ -1,5 +1,3 @@
-import jdk.nashorn.api.tree.ForInLoopTree;
-
 /**
  * Main class containing our sorting algorithms.
  * @author Alex Merk.
@@ -25,34 +23,7 @@ public class Sort {
      */
     public Sort() {
         super();
-        construct();
         experiment();
-    }
-
-    /**
-     * Calls methods to construct the 4 data sets from scratch.
-     */
-    private void construct() {
-        buildReal1();
-        buildReal2();
-        buildSynthetic1();
-        buildSynthetic2();
-    }
-
-    private void buildReal1() {
-        data = new Object[real1Size];
-    }
-
-    private void buildReal2() {
-        data = new Object[real2Size];
-    }
-
-    private void buildSynthetic1() {
-        data = new Object[synthetic1Size];
-    }
-
-    private void buildSynthetic2() {
-        data = new Object[synthetic2Size];
     }
 
     /**
@@ -60,35 +31,61 @@ public class Sort {
      * SUBJECT TO CHANGE
      */
     private void experiment() {
+        //Set of experiments on first data set.
+        //buildReal1();
+        runTime_dataSize();
+        runTime_degSort();
+        memUse_dataSize();
+        memUse_degSort();
 
+        //Set of experiments on second data set.
+        //buildReal2();
+        runTime_dataSize();
+        runTime_degSort();
+        memUse_dataSize();
+        memUse_degSort();
+
+        //Set of experiments on third data set.
+        //buildSynthetic1();
+        runTime_dataSize();
+        runTime_degSort();
+        memUse_dataSize();
+        memUse_degSort();
+
+        //Set of experiments on 4th data set.
+        //buildSynthetic2();
+        runTime_dataSize();
+        runTime_degSort();
+        memUse_dataSize();
+        memUse_degSort();
     }
 
     /**
-     * Experiment controller for the first real data set.
+     * Fills the array with the first real world data set.
      */
-    private void realData1Experiments() {
-
+    private void buildReal1() {
+        data = new Object[real1Size];
     }
 
     /**
-     * Experiment controller for the second real data set.
+     * Fills the array with the second real world data set.
      */
-    private void realData2Experiments() {
-
+    private void buildReal2() {
+        data = new Object[real2Size];
     }
 
     /**
-     * Experiment controller for the first synthetic data set.
+     * Fills the array with the first synthetic data set.
      */
-    private void synetheticData1Experiment() {
-
+    private void buildSynthetic1() {
+        data = new Object[synthetic1Size];
     }
 
     /**
-     * Experiment controller for the second synthetic data set.
+     * Fills the array with the second synthetic data set.
      */
-    private void syntheticData2Experiment() {
-
+    private void buildSynthetic2() {
+        data = new Object[synthetic2Size];
     }
 
     /**
