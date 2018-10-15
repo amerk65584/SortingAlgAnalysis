@@ -1,29 +1,16 @@
 /**
- * Main class containing our sorting algorithms.
- * @author Alex Merk.
- * @author Nicole Kauer.
+ * Main driver for our sorting algorithms.
+ * Only functionality is to call various algorithms.
+ * @author Alex Merk
+ * @author Nicole Kauer
  */
-public class Sort {
+public class ExperimentDriver {
 
     /**
-     * Array to hold all of the data sets.
+     * Just main.
      */
-    private Object data[];
+    public static void main(String[] args) {
 
-    /**
-     * Holds the size of the data set for re-initialization.
-     */
-    private int real1Size;
-    private int real2Size;
-    private int synthetic1Size;
-    private int synthetic2Size;
-
-    /**
-     * Makes calls to construct and fill data sets with values and perform the experiments.
-     */
-    public Sort() {
-        super();
-        experiment();
     }
 
     /**
@@ -58,34 +45,6 @@ public class Sort {
         runTime_degSort();
         memUse_dataSize();
         memUse_degSort();
-    }
-
-    /**
-     * Fills the array with the first real world data set.
-     */
-    private void buildReal1() {
-        data = new Object[real1Size];
-    }
-
-    /**
-     * Fills the array with the second real world data set.
-     */
-    private void buildReal2() {
-        data = new Object[real2Size];
-    }
-
-    /**
-     * Fills the array with the first synthetic data set.
-     */
-    private void buildSynthetic1() {
-        data = new Object[synthetic1Size];
-    }
-
-    /**
-     * Fills the array with the second synthetic data set.
-     */
-    private void buildSynthetic2() {
-        data = new Object[synthetic2Size];
     }
 
     /**
