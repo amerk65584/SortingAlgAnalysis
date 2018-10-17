@@ -27,7 +27,7 @@ public class Data {
             data[i] = (int)(Math.random() * 100);
         }
         System.out.println(Arrays.toString(data));
-        quickSort(data, 0, data.length - 1);
+        quickSort(data, 0, data.length);
         System.out.println("quick: " + Arrays.toString(data));
 
     }
@@ -161,10 +161,9 @@ public class Data {
     public void quickSort(int[] array, int low, int high) {
         if (low < high) {
             int pivot = partition(array, low, high);
-            quickSort(array, low, pivot - 1);
+            quickSort(array, low, pivot);
             quickSort(array, pivot + 1, high);
         }
-        System.out.println(Arrays.toString(array));
     }
 
     private int partition(int[] array, int low, int high) {
@@ -173,12 +172,13 @@ public class Data {
 
         for (int i = low + 1; i < high; i++) {
             if (array[i] < pivot) {
-                int temp = array[i];
-                array[i] = array[i + 1];
-                array[i + 1] = temp;
                 left++;
+                int temp = array[i];
+                array[i] = array[left];
+                array[left] = temp;
             }
         }
+
         int temp = array[left];
         array[left] = array[low];
         array[low] = temp;
