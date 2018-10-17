@@ -10,7 +10,7 @@ public class ExperimentDriver {
      * Just main.
      */
     public static void main(String[] args) {
-
+        Data a = new Data();
     }
 
     /**
@@ -74,4 +74,6 @@ public class ExperimentDriver {
     private void memUse_degSort() {
 
     }
+
+
 }

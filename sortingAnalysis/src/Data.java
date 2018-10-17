@@ -18,6 +18,18 @@ public class Data {
      */
     public Data() {
         super();
+        testSorts();
+    }
+
+    private void testSorts() {
+        data = new int[20];
+        for (int i = 0; i < 20; i++) {
+            data[i] = (int)(Math.random() * 100);
+        }
+        System.out.println(Arrays.toString(data));
+        quickSort(data, 0, data.length - 1);
+        System.out.println("quick: " + Arrays.toString(data));
+
     }
 
     /**
@@ -97,15 +109,21 @@ public class Data {
      * Implementation of merge sort
      * @return the sorted array of data
      */
-    public int[] mergeSortStart() {
-        return mergeSort(data);
-    }
 
     private int[] mergeSort(int[] a) {
-        if (a.length == 1)
+        if (a.length <= 1)
             return a;
-        int[] left = Arrays.copyOfRange(data, 0, data.length / 2);
-        int[] right = Arrays.copyOfRange(data, data.length / 2 + 1, data.length);
+
+        int[] left = new int[a.length / 2];
+        int[] right = new int[a.length - a.length / 2];
+        left = Arrays.copyOfRange(a, 0, a.length / 2);
+        right = Arrays.copyOfRange(a, a.length / 2, a.length);
+//        for (int i = 0; i < a.length; i++) {
+//            if (i < a.length / 2)
+//                left[i] = a[i];
+//            else
+//                right[i - a.length / 2] = a[i];
+//        }
 
         left = mergeSort(left);
         right = mergeSort(right);
@@ -140,7 +158,31 @@ public class Data {
      * Implementation of quick sort
      * @return the sorted array of data
      */
-    public int[] quickSort() {
+    public void quickSort(int[] array, int low, int high) {
+        if (low < high) {
+            int pivot = partition(array, low, high);
+            quickSort(array, low, pivot - 1);
+            quickSort(array, pivot + 1, high);
+        }
+        System.out.println(Arrays.toString(array));
+    }
 
+    private int partition(int[] array, int low, int high) {
+        int pivot = array[low];
+        int left = low;
+
+        for (int i = low + 1; i < high; i++) {
+            if (array[i] < pivot) {
+                int temp = array[i];
+                array[i] = array[i + 1];
+                array[i + 1] = temp;
+                left++;
+            }
+        }
+        int temp = array[left];
+        array[left] = array[low];
+        array[low] = temp;
+
+        return left;
     }
 }
