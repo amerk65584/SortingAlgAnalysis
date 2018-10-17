@@ -18,32 +18,6 @@ public class Data {
      */
     public Data() {
         super();
-        testSorts();
-    }
-
-    private void testSorts() {
-        data = new int[20];
-        for (int i = 0; i < 20; i++) {
-            data[i] = (int)(Math.random() * 100);
-        }
-        System.out.println(Arrays.toString(data));
-        quickSort(data, 0, data.length);
-        System.out.println("quick: " + Arrays.toString(data));
-
-    }
-
-    /**
-     * Fills the array with the real world data set.
-     */
-    public void buildRealData(final File data1) {
-        data = new int[0];
-    }
-
-    /**
-     * Fills the array with synthetic data set.
-     */
-    public void buildSyntheticData() {
-        data = new int[0];
     }
 
     /**
