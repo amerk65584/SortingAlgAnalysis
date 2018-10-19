@@ -1,3 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
 /**
  * Main driver for our sorting algorithms.
  * Only functionality is to call various algorithms.
@@ -10,12 +17,15 @@ public class ExperimentDriver {
      * Just main.
      */
     public static void main(String[] args) {
-//        runTime_dataSize();
-//        runTime_degSort();
-//        memUse_dataSize();
-//        memUse_degSort();
+        runTime_dataSize();
+        runTime_degSort();
+        memUse_dataSize();
+        memUse_degSort();
     }
 
+    private static void testFiles() {
+
+    }
     private static void runTime_dataSize() {
         Data data = new Data(1);
         data.genRevSynth();
@@ -26,11 +36,9 @@ public class ExperimentDriver {
         //track times here
 
         data = new Data(3);
-        //read files here
         //track times here
 
         data = new Data(4);
-        //read files here
         //track times here
     }
 
@@ -44,47 +52,41 @@ public class ExperimentDriver {
         //track times here
 
         data = new Data(3);
-        //read files here
         //track times here
 
         data = new Data(4);
-        //read files here
         //track times here
     }
 
     private static void memUse_dataSize() {
         Data data = new Data(1);
         data.genRevSynth();
-        //track times here
+        //track mem here
 
         data = new Data(2);
         data.genSin();
-        //track times here
+        //track mem here
 
         data = new Data(3);
-        //read files here
-        //track times here
+        //track mem here
 
         data = new Data(4);
-        //read files here
-        //track times here
+        //track mem here
     }
 
     private static void memUse_degSort() {
         Data data = new Data(1);
         data.semiSort();
-        //track times here
+        //track mem here
 
         data = new Data(2);
         data.semiSort();
-        //track times here
+        //track mem here
 
         data = new Data(3);
-        //read files here
-        //track times here
+        //track mem here
 
         data = new Data(4);
-        //read files here
-        //track times here
+        //track mem here
     }
 }

@@ -1,4 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Main class containing our sorting algorithms.
@@ -37,7 +41,7 @@ public class Data {
      *
      */
     protected double[] dataOne;
-    protected double[] dataTWo;
+    protected double[] dataTwo;
     protected double[] dataThree;
     protected double[] dataFour;
     protected double[] dataFive;
@@ -60,7 +64,7 @@ public class Data {
                 }
                 break;
             case 3:
-                //read files here
+                readFileOne("Data/USCensusWA_wage_100k.csv");
                 break;
             case 4:
                 //read files here
@@ -72,7 +76,7 @@ public class Data {
 
     public void genRevSynth() {
         dataOne = new double[(int) (original.length * .2)];
-        dataTWo = new double[(int) (original.length * .4)];
+        dataTwo = new double[(int) (original.length * .4)];
         dataThree = new double[(int) (original.length * .6)];
         dataFour = new double[(int) (original.length * .8)];
         dataFive = new double[original.length];
@@ -80,13 +84,13 @@ public class Data {
         for (int i = 0; i < original.length; i++) {
             if (i < dataOne.length) {
                 dataOne[i] = dataOne.length - i;
-                dataTWo[i] = dataTWo.length - i;
+                dataTwo[i] = dataTwo.length - i;
                 dataThree[i] = dataThree.length - i;
                 dataFour[i] = dataFour.length - i;
                 dataFive[i] = dataFive.length - i;
             }
-            else if (i < dataTWo.length) {
-                dataTWo[i] = dataTWo.length - i;
+            else if (i < dataTwo.length) {
+                dataTwo[i] = dataTwo.length - i;
                 dataThree[i] = dataThree.length - i;
                 dataFour[i] = dataFour.length - i;
                 dataFive[i] = dataFive.length - i;
@@ -107,7 +111,7 @@ public class Data {
 
     public void genSin() {
         dataOne = new double[(int) (original.length * .2)];
-        dataTWo = new double[(int) (original.length * .4)];
+        dataTwo = new double[(int) (original.length * .4)];
         dataThree = new double[(int) (original.length * .6)];
         dataFour = new double[(int) (original.length * .8)];
         dataFive = new double[original.length];
@@ -115,13 +119,13 @@ public class Data {
         for (int i = 0; i < original.length; i++) {
             if (i < dataOne.length) {
                 dataOne[i] = Math.sin(i) + 1;
-                dataTWo[i] = Math.sin(i) + 1;
+                dataTwo[i] = Math.sin(i) + 1;
                 dataThree[i] = Math.sin(i) + 1;
                 dataFour[i] = Math.sin(i) + 1;
                 dataFive[i] = Math.sin(i) + 1;
             }
-            else if (i < dataTWo.length) {
-                dataTWo[i] = Math.sin(i) + 1;
+            else if (i < dataTwo.length) {
+                dataTwo[i] = Math.sin(i) + 1;
                 dataThree[i] = Math.sin(i) + 1;
                 dataFour[i] = Math.sin(i) + 1;
                 dataFive[i] = Math.sin(i) + 1;
@@ -140,6 +144,56 @@ public class Data {
         }
     }
 
+    public void readFileOne(String file) {
+        File a = new File(file);
+        if (a.exists()) {
+            try {
+                Scanner in = new Scanner(a);
+                String s = in.next().substring(1);
+                double t = Integer.parseInt(s);
+                ArrayList<Double> data = new ArrayList<>();
+                while (in.hasNext()) {
+                    data.add((double) Integer.parseInt(in.next()));
+                }
+                original = data.stream().mapToDouble(i -> i).toArray();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        dataOne = new double[(int) (original.length * .2)];
+        dataTwo = new double[(int) (original.length * .4)];
+        dataThree = new double[(int) (original.length * .6)];
+        dataFour = new double[(int) (original.length * .8)];
+        dataFive = new double[original.length];
+
+        for (int i = 0; i < original.length; i++) {
+            if (i < dataOne.length) {
+                dataOne[i] = original[i];
+                dataTwo[i] = original[i];
+                dataThree[i] = original[i];
+                dataFour[i] = original[i];
+                dataFive[i] = original[i];
+            }
+            else if (i < dataTwo.length) {
+                dataTwo[i] = original[i];
+                dataThree[i] = original[i];
+                dataFour[i] = original[i];
+                dataFive[i] = original[i];
+            }
+            else if (i < dataThree.length) {
+                dataThree[i] = original[i];
+                dataFour[i] = original[i];
+                dataFive[i] = original[i];
+            }
+            else if (i < dataFour.length) {
+                dataFour[i] = original[i];
+                dataFive[i] = original[i];
+            } else {
+                dataFive[i] = original[i];
+            }
+        }
+    }
+
     public void semiSort() {
         copyOne = Arrays.copyOfRange(original, 0, original.length);
         copyTwo = Arrays.copyOfRange(original, 0, original.length);
@@ -154,11 +208,11 @@ public class Data {
     }
 
     public void print() {
-        System.out.println(Arrays.toString(copyOne));
-        System.out.println(Arrays.toString(copyTwo));
-        System.out.println(Arrays.toString(copyThree));
-        System.out.println(Arrays.toString(copyFour));
-        System.out.println(Arrays.toString(copyFive));
+        System.out.println(Arrays.toString(dataOne));
+        System.out.println(Arrays.toString(dataTwo));
+        System.out.println(Arrays.toString(dataThree));
+        System.out.println(Arrays.toString(dataFour));
+        System.out.println(Arrays.toString(dataFive));
     }
     /**
      * Implementation of insertion sort.
