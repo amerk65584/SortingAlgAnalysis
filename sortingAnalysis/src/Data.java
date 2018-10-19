@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -9,74 +8,204 @@ import java.util.Arrays;
 public class Data {
 
     /**
-     * Array to hold all of the data sets.
+     * Original array for data.
      */
-    private int data[];
+    private double[] original;
 
+    /**
+     * Copy arrays for semi-sorting
+     */
+    protected double[] copyOne;
+    protected double[] copyTwo;
+    protected double[] copyThree;
+    protected double[] copyFour;
+    protected double[] copyFive;
+
+
+    /**
+     *Arrays to hold copies of the original data.
+     * All 5 arrays will be filled with either:
+     *  data sorted in reverse order
+     *  sin(i) + 1
+     *  real data 1
+     *  real data 2
+     * dataOne will be 20% size of the original array.
+     * dataTwo will be 40% size of the original array.
+     * dataThree will be 60% size of the original array.
+     * dataFour will be 80% size of the original array.
+     * dataFive will be 100% size of the original array.
+     *
+     */
+    protected double[] dataOne;
+    protected double[] dataTWo;
+    protected double[] dataThree;
+    protected double[] dataFour;
+    protected double[] dataFive;
     /**
      * Makes calls to construct and fill data sets with values and perform the experiments.
      */
-    public Data() {
+    public Data(String firstData, String secondData) {
         super();
+        original = new double[100000];
+        dataOne = new double[(int) (original.length * .2)];
+        dataTWo = new double[(int) (original.length * .4)];
+        dataThree = new double[(int) (original.length * .6)];
+        dataFour = new double[(int) (original.length * .8)];
+    }
+
+    public void genRevSynth() {
+
+        dataFive = new double[original.length];
+        for (int i = 0; i < original.length; i++) {
+            original[i] = original.length - i;
+            if (i < dataOne.length) {
+                dataOne[i] = dataOne.length - i;
+                dataTWo[i] = dataTWo.length - i;
+                dataThree[i] = dataThree.length - i;
+                dataFour[i] = dataFour.length - i;
+                dataFive[i] = dataFive.length - i;
+            }
+            else if (i < dataTWo.length) {
+                dataTWo[i] = dataTWo.length - i;
+                dataThree[i] = dataThree.length - i;
+                dataFour[i] = dataFour.length - i;
+                dataFive[i] = dataFive.length - i;
+            }
+            else if (i < dataThree.length) {
+                dataThree[i] = dataThree.length - i;
+                dataFour[i] = dataFour.length - i;
+                dataFive[i] = dataFive.length - i;
+            }
+            else if (i < dataFour.length) {
+                dataFour[i] = dataFour.length - i;
+                dataFive[i] = dataFive.length - i;
+            } else {
+                dataFive[i] = dataFive.length - i;
+            }
+        }
+    }
+
+    public void genSin() {
+        for (int i = 0; i < original.length; i++) {
+            original[i] = original.length - i;
+            if (i < dataOne.length) {
+                dataOne[i] = Math.sin(i) + 1;
+                dataTWo[i] = Math.sin(i) + 1;
+                dataThree[i] = Math.sin(i) + 1;
+                dataFour[i] = Math.sin(i) + 1;
+                dataFive[i] = Math.sin(i) + 1;
+            }
+            else if (i < dataTWo.length) {
+                dataTWo[i] = Math.sin(i) + 1;
+                dataThree[i] = Math.sin(i) + 1;
+                dataFour[i] = Math.sin(i) + 1;
+                dataFive[i] = Math.sin(i) + 1;
+            }
+            else if (i < dataThree.length) {
+                dataThree[i] = dataThree.length - i;
+                dataThree[i] = Math.sin(i) + 1;
+                dataFour[i] = Math.sin(i) + 1;
+                dataFive[i] = Math.sin(i) + 1;
+            }
+            else if (i < dataFour.length) {
+                dataFour[i] = Math.sin(i) + 1;
+                dataFive[i] = Math.sin(i) + 1;
+            } else {
+                dataFive[i] = Math.sin(i) + 1;
+            }
+        }
+    }
+
+    public void genReal1() {
+
+    }
+
+    public void genReal2() {
+
+    }
+
+    public void semiSort() {
+        copyOne = Arrays.copyOfRange(original, 0, original.length);
+        copyTwo = Arrays.copyOfRange(original, 0, original.length);
+        copyThree = Arrays.copyOfRange(original, 0, original.length);
+        copyFour = Arrays.copyOfRange(original, 0, original.length);
+        copyFive = Arrays.copyOfRange(original, 0, original.length);
+
+        selectionSort(copyOne, (int) (copyOne.length * .2));
+        selectionSort(copyTwo, (int) (copyTwo.length * .4));
+        selectionSort(copyThree, (int) (copyThree.length * .6));
+        selectionSort(copyFour, (int) (copyFour.length * .8));
+    }
+
+    public void print() {
+        System.out.println(Arrays.toString(dataOne));
+        System.out.println(Arrays.toString(dataTWo));
+        System.out.println(Arrays.toString(dataThree));
+        System.out.println(Arrays.toString(dataFour));
+        System.out.println(Arrays.toString(dataFive));
     }
 
     /**
      * Implementation of insertion sort.
      * @return the sorted array of data
      */
-    public int[] insertionSort() {
+    public double[] insertionSort(double[] input) {
         int i = 1;
-        while (i < data.length) {
+        while (i < input.length) {
             int j = i;
-            while (j > 0 && data[j - 1] > data[j]) {
-                int temp = data[j];
-                data[j] = data[j-1];
-                data[j-1] = temp;
+            while (j > 0 && input[j - 1] > input[j]) {
+                double temp = input[j];
+                input[j] = input[j-1];
+                input[j-1] = temp;
                 j--;
             }
             i++;
         }
-        return data;
+        return input;
     }
 
     /**
      * Implementation of selection sort.
      * @return the sorted array of data
      */
-    public int[] selectionSort() {
-        for (int i = 0; i < data.length - 1; i++) {
+    public double[] selectionSort(double[] input, int stop) {
+        int x = 0;
+        for (int i = 0; i < input.length - 1; i++) {
+            if (x > stop)
+                break;
+            x++;
             int min = i;
-            for (int j = i + 1; j < data.length; j++) {
-                if (data[j] < data[min])
+            for (int j = i + 1; j < input.length; j++) {
+                if (input[j] < input[min])
                     min = j;
             }
             if (min != i) {
-                int temp = data[i];
-                data[i] = data[min];
-                data[min] = temp;
+                double temp = input[i];
+                input[i] = input[min];
+                input[min] = temp;
             }
         }
-        return data;
+        return input;
     }
 
     /**
      * Implementation of bubble sort
      * @return the sorted array of data
      */
-    public int[] bubbleSort() {
+    public double[] bubbleSort(double[] input) {
         boolean swap = true;
         while (swap) {
             swap = false;
-            for (int i = 1; i < data.length; i++) {
-                if (data[i - 1] > data[i]) {
-                    int temp = data[i];
-                    data[i] = data[i-1];
-                    data[i-1] = temp;
+            for (int i = 1; i < input.length; i++) {
+                if (input[i - 1] > input[i]) {
+                    double temp = input[i];
+                    input[i] = input[i-1];
+                    input[i-1] = temp;
                     swap = true;
                 }
             }
         }
-        return data;
+        return input;
     }
 
     /**
@@ -84,20 +213,15 @@ public class Data {
      * @return the sorted array of data
      */
 
-    private int[] mergeSort(int[] a) {
-        if (a.length <= 1)
-            return a;
+    private double[] mergeSort(double[] input) {
+        if (input.length <= 1)
+            return input;
 
-        int[] left = new int[a.length / 2];
-        int[] right = new int[a.length - a.length / 2];
-        left = Arrays.copyOfRange(a, 0, a.length / 2);
-        right = Arrays.copyOfRange(a, a.length / 2, a.length);
-//        for (int i = 0; i < a.length; i++) {
-//            if (i < a.length / 2)
-//                left[i] = a[i];
-//            else
-//                right[i - a.length / 2] = a[i];
-//        }
+        double[] left;
+        double[] right;
+        left = Arrays.copyOfRange(input, 0, input.length / 2);
+        right = Arrays.copyOfRange(input, input.length / 2, input.length);
+
 
         left = mergeSort(left);
         right = mergeSort(right);
@@ -105,8 +229,8 @@ public class Data {
         return merge(left, right);
     }
 
-    private int[] merge(int[] left, int[] right) {
-        int[] result = new int[left.length + right.length];
+    private double[] merge(double[] left, double[] right) {
+        double[] result = new double[left.length + right.length];
         int i = 0, j = 0;
         while (i < left.length && j < right.length) {
             if (left[i] > right[j]) {

@@ -11,6 +11,126 @@ things to consider:
 4. copying data
     -copy data before each sort? twice the memory usage but more efficient time-wise
     -reconstruct data before each usage? less efficient time-wise but less memory usage
-5. what type of data
-    -one data type (i.e. ints)? only need to implement one sort method
-    -multiple data types? need multiple sorting methods but more robust data in the end
+
+general program flow:
+    1st data set
+        initialize data based on distribution (eg uniform, random, bell-curve, etc)
+        run_time / data_size
+            alpha{
+                1st x value
+                    insertion (5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                    selection (5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                    bubble (5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                    merge (5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                    quick(5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                ...
+                nth x value
+                    insertion (5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                    selection (5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                    bubble (5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                    merge (5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                    quick(5 runs)
+                        -copy data / reset before each run
+                        -record standard deviation
+                }
+        run_time / deg_sorted
+            beta{
+                1st x value
+                    insertion (5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+                    selection (5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+                    bubble (5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+                    merge (5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+                    quick(5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+                ...
+                nth x value
+                    insertion (5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+                    selection (5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+                    bubble (5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+                    merge (5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+                    quick(5 runs)
+                        -copy data / reset before each run
+                        -semi-sort data by x% (semi-bubble sort?)
+                        -record standard deviation
+            }
+        memUse / dataSize
+            alpha()
+        memUse / degSorted
+            beta()
+
+    2nd data set
+        initialize data set based on a different distribution
+        runTime_dataSize
+            alpha()
+        runTime_degSort
+            beta()
+        memUse_dataSize
+            alpha()
+        memUse_degSort
+            beta()
+
+    3rd data set
+        initialize data set based on real world data
+        runTime_dataSize
+            alpha()
+        runTime_degSort
+            beta()
+        memUse_dataSize
+            alpha()
+        memUse_degSort
+            beta()
+
+    4th data set
+        initialize data set based on real world data
+        runTime_dataSize
+            alpha()
+        runTime_degSort
+            beta()
+        memUse_dataSize
+            alpha()
+        memUse_degSort
+            beta()

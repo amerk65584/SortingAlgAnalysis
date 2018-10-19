@@ -10,70 +10,101 @@ public class ExperimentDriver {
      * Just main.
      */
     public static void main(String[] args) {
-        Data a = new Data();
+        experiment1();
+        experiment2();
+        experiment3();
+        experiment4();
+        experiment5();
+        experiment6();
+        experiment7();
+        experiment8();
+        experiment9();
+        experiment10();
+        experiment11();
+        experiment12();
+        experiment13();
+        experiment14();
+        experiment15();
+        experiment16();
     }
 
-    /**
-     * Runs the experiments and tracks overall run-times and memory usage.
-     * SUBJECT TO CHANGE
-     */
-    private void experiment() {
-        //Set of experiments on first data set.
-        //buildReal1();
-        runTime_dataSize();
-        runTime_degSort();
-        memUse_dataSize();
-        memUse_degSort();
-
-        //Set of experiments on second data set.
-        //buildReal2();
-        runTime_dataSize();
-        runTime_degSort();
-        memUse_dataSize();
-        memUse_degSort();
-
-        //Set of experiments on third data set.
-        //buildSynthetic1();
-        runTime_dataSize();
-        runTime_degSort();
-        memUse_dataSize();
-        memUse_degSort();
-
-        //Set of experiments on 4th data set.
-        //buildSynthetic2();
-        runTime_dataSize();
-        runTime_degSort();
-        memUse_dataSize();
-        memUse_degSort();
-    }
-
-    /**
-     * Analyzes the run time of the sorting algorithms based on the data size of the input.
-     */
-    private void runTime_dataSize() {
+    //RunTime_DataSize - rev
+    private static void experiment1() {
 
     }
 
-    /**
-     * Analyzes the run time of the sorting algorithms based on the degree of sortedness of the input.
-     */
-    private void runTime_degSort() {
+    //RunTime_DegSorted - rev
+    private static void experiment2() {
 
     }
 
-    /**
-     * Analyzes the memory usage of the sorting algorithms based on the data size of the input.
-     */
-    private void memUse_dataSize() {
+    //MemUse_DataSize - rev
+    private static void experiment3() {
 
     }
 
-    /**
-     * Analyzes the memory usage of the sorting algorithms based on the degree of sortedness of the input.
-     */
-    private void memUse_degSort() {
+    //MemUse_DegSort - rev
+    private static void experiment4() {
 
     }
 
+    //RunTime_DataSize - sin
+    private static void experiment5() {
 
+    }
+
+    //RunTime_DegSorted - sin
+    private static void experiment6() {
+
+    }
+
+    //MemUse_DataSize - sin
+    private static void experiment7() {
+
+    }
+
+    //MemUse_DegSort - sin
+    private static void experiment8() {
+
+    }
+
+    //RunTime_DataSize - real1
+    private static void experiment9() {
+
+    }
+
+    //RunTime_DegSorted - real1
+    private static void experiment10() {
+
+    }
+
+    //MemUse_DataSize - real1
+    private static void experiment11() {
+
+    }
+
+    //MemUse_DegSort - real1
+    private static void experiment12() {
+
+    }
+
+    //RunTime_DataSize - real2
+    private static void experiment13() {
+
+    }
+
+    //RunTime_DegSorted - real2
+    private static void experiment14() {
+
+    }
+
+    //MemUse_DataSize - real2
+    private static void experiment15() {
+
+    }
+
+    //MemUse_DegSort - real2
+    private static void experiment16() {
+
+    }
 }
