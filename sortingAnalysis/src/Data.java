@@ -44,20 +44,40 @@ public class Data {
     /**
      * Makes calls to construct and fill data sets with values and perform the experiments.
      */
-    public Data(String firstData, String secondData) {
+    public Data(int choice) {
         super();
-        original = new double[100000];
+        switch (choice) {
+            case 1:
+                original = new double[100000];
+                for (int i = 0; i < original.length; i++) {
+                    original[i] = original.length - i;
+                }
+                break;
+            case 2:
+                original = new double[100000];
+                for (int i = 0; i < original.length; i++) {
+                    original[i] = Math.sin(i) + 1;
+                }
+                break;
+            case 3:
+                //read files here
+                break;
+            case 4:
+                //read files here
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void genRevSynth() {
         dataOne = new double[(int) (original.length * .2)];
         dataTWo = new double[(int) (original.length * .4)];
         dataThree = new double[(int) (original.length * .6)];
         dataFour = new double[(int) (original.length * .8)];
-    }
-
-    public void genRevSynth() {
-
         dataFive = new double[original.length];
+
         for (int i = 0; i < original.length; i++) {
-            original[i] = original.length - i;
             if (i < dataOne.length) {
                 dataOne[i] = dataOne.length - i;
                 dataTWo[i] = dataTWo.length - i;
@@ -86,8 +106,13 @@ public class Data {
     }
 
     public void genSin() {
+        dataOne = new double[(int) (original.length * .2)];
+        dataTWo = new double[(int) (original.length * .4)];
+        dataThree = new double[(int) (original.length * .6)];
+        dataFour = new double[(int) (original.length * .8)];
+        dataFive = new double[original.length];
+
         for (int i = 0; i < original.length; i++) {
-            original[i] = original.length - i;
             if (i < dataOne.length) {
                 dataOne[i] = Math.sin(i) + 1;
                 dataTWo[i] = Math.sin(i) + 1;
@@ -102,7 +127,6 @@ public class Data {
                 dataFive[i] = Math.sin(i) + 1;
             }
             else if (i < dataThree.length) {
-                dataThree[i] = dataThree.length - i;
                 dataThree[i] = Math.sin(i) + 1;
                 dataFour[i] = Math.sin(i) + 1;
                 dataFive[i] = Math.sin(i) + 1;
@@ -114,14 +138,6 @@ public class Data {
                 dataFive[i] = Math.sin(i) + 1;
             }
         }
-    }
-
-    public void genReal1() {
-
-    }
-
-    public void genReal2() {
-
     }
 
     public void semiSort() {
@@ -138,13 +154,12 @@ public class Data {
     }
 
     public void print() {
-        System.out.println(Arrays.toString(dataOne));
-        System.out.println(Arrays.toString(dataTWo));
-        System.out.println(Arrays.toString(dataThree));
-        System.out.println(Arrays.toString(dataFour));
-        System.out.println(Arrays.toString(dataFive));
+        System.out.println(Arrays.toString(copyOne));
+        System.out.println(Arrays.toString(copyTwo));
+        System.out.println(Arrays.toString(copyThree));
+        System.out.println(Arrays.toString(copyFour));
+        System.out.println(Arrays.toString(copyFive));
     }
-
     /**
      * Implementation of insertion sort.
      * @return the sorted array of data
