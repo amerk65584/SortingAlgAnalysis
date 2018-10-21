@@ -45,29 +45,34 @@ public class Data {
     protected double[] dataThree;
     protected double[] dataFour;
     protected double[] dataFive;
+
+    private Runtime memory;
     /**
      * Makes calls to construct and fill data sets with values and perform the experiments.
      */
     public Data(int choice) {
         super();
+        memory = Runtime.getRuntime();
         switch (choice) {
             case 1:
                 original = new double[100000];
                 for (int i = 0; i < original.length; i++) {
                     original[i] = original.length - i;
                 }
+                genRevSynth();
                 break;
             case 2:
                 original = new double[100000];
                 for (int i = 0; i < original.length; i++) {
                     original[i] = Math.sin(i) + 1;
                 }
+                genSin();
                 break;
             case 3:
                 readFileOne("Data/USCensusWA_wage_100k.csv");
                 break;
             case 4:
-                //read files here
+                readFileOne("Data/Weather_100k.csv");
                 break;
             default:
                 break;
@@ -208,11 +213,19 @@ public class Data {
     }
 
     public void print() {
-        System.out.println(Arrays.toString(dataOne));
-        System.out.println(Arrays.toString(dataTwo));
-        System.out.println(Arrays.toString(dataThree));
-        System.out.println(Arrays.toString(dataFour));
-        System.out.println(Arrays.toString(dataFive));
+        System.out.println("Original: " + Arrays.toString(original));
+
+        System.out.println("data one" + Arrays.toString(dataOne));
+        System.out.println("data two" + Arrays.toString(dataTwo));
+        System.out.println("data three" + Arrays.toString(dataThree));
+        System.out.println("data four" + Arrays.toString(dataFour));
+        System.out.println("data five" + Arrays.toString(dataFive));
+
+        System.out.println("copy one:" + Arrays.toString(copyOne));
+        System.out.println("copy two:" + Arrays.toString(copyTwo));
+        System.out.println("copy three:" + Arrays.toString(copyThree));
+        System.out.println("copy four:" + Arrays.toString(copyFour));
+        System.out.println("copy five:" + Arrays.toString(copyFive));
     }
     /**
      * Implementation of insertion sort.
@@ -282,7 +295,7 @@ public class Data {
      * @return the sorted array of data
      */
 
-    private double[] mergeSort(double[] input) {
+    public double[] mergeSort(double[] input) {
         if (input.length <= 1)
             return input;
 
@@ -325,7 +338,7 @@ public class Data {
      * Implementation of quick sort
      * @return the sorted array of data
      */
-    public void quickSort(int[] array, int low, int high) {
+    public void quickSort(double[] array, int low, int high) {
         if (low < high) {
             int pivot = partition(array, low, high);
             quickSort(array, low, pivot);
@@ -333,20 +346,20 @@ public class Data {
         }
     }
 
-    private int partition(int[] array, int low, int high) {
-        int pivot = array[low];
+    private int partition(double[] array, int low, int high) {
+        double pivot = array[low];
         int left = low;
 
         for (int i = low + 1; i < high; i++) {
             if (array[i] < pivot) {
                 left++;
-                int temp = array[i];
+                double temp = array[i];
                 array[i] = array[left];
                 array[left] = temp;
             }
         }
 
-        int temp = array[left];
+        double temp = array[left];
         array[left] = array[low];
         array[low] = temp;
 
