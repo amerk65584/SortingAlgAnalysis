@@ -33,12 +33,11 @@ public class ExperimentDriver {
 //        memUse_dataSize();
 //        memUse_degSort();
         data = new Data(1);
-        data.quickSort(data.dataOne, 0, data.dataOne.length - 1);
     }
 
     private static void runTime_dataSize() {
         experiment = 1;
-        //runTimes(1);
+//        runTimes(1);
         System.out.println(results.toString());
 //        runTimes(2);
 //        runTimes(3);

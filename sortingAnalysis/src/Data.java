@@ -14,16 +14,16 @@ public class Data {
     /**
      * Original array for data.
      */
-    private double[] original;
+    private int[] original;
 
     /**
      * Copy arrays for semi-sorting
      */
-    protected double[] copyOne;
-    protected double[] copyTwo;
-    protected double[] copyThree;
-    protected double[] copyFour;
-    protected double[] copyFive;
+    protected int[] copyOne;
+    protected int[] copyTwo;
+    protected int[] copyThree;
+    protected int[] copyFour;
+    protected int[] copyFive;
 
 
     /**
@@ -40,11 +40,11 @@ public class Data {
      * dataFive will be 100% size of the original array.
      *
      */
-    protected double[] dataOne;
-    protected double[] dataTwo;
-    protected double[] dataThree;
-    protected double[] dataFour;
-    protected double[] dataFive;
+    protected int[] dataOne;
+    protected int[] dataTwo;
+    protected int[] dataThree;
+    protected int[] dataFour;
+    protected int[] dataFive;
 
     private Runtime memory;
     /**
@@ -55,16 +55,17 @@ public class Data {
         memory = Runtime.getRuntime();
         switch (choice) {
             case 1:
-                original = new double[100000];
+                original = new int[100000];
                 for (int i = 0; i < original.length; i++) {
                     original[i] = original.length - i;
                 }
                 genRevSynth();
+                quickSort(dataOne, 0, dataOne.length);
                 break;
             case 2:
-                original = new double[100000];
+                original = new int[100000];
                 for (int i = 0; i < original.length; i++) {
-                    original[i] = Math.sin(i) + 1;
+                    original[i] = (int) (2 * Math.pow(i, 2) - i);
                 }
                 genSin();
                 break;
@@ -80,11 +81,11 @@ public class Data {
     }
 
     public void genRevSynth() {
-        dataOne = new double[(int) (original.length * .2)];
-        dataTwo = new double[(int) (original.length * .4)];
-        dataThree = new double[(int) (original.length * .6)];
-        dataFour = new double[(int) (original.length * .8)];
-        dataFive = new double[original.length];
+        dataOne = new int[(int) (original.length * .2)];
+        dataTwo = new int[(int) (original.length * .4)];
+        dataThree = new int[(int) (original.length * .6)];
+        dataFour = new int[(int) (original.length * .8)];
+        dataFive = new int[original.length];
 
         for (int i = 0; i < original.length; i++) {
             if (i < dataOne.length) {
@@ -115,36 +116,36 @@ public class Data {
     }
 
     public void genSin() {
-        dataOne = new double[(int) (original.length * .2)];
-        dataTwo = new double[(int) (original.length * .4)];
-        dataThree = new double[(int) (original.length * .6)];
-        dataFour = new double[(int) (original.length * .8)];
-        dataFive = new double[original.length];
+        dataOne = new int[(int) (original.length * .2)];
+        dataTwo = new int[(int) (original.length * .4)];
+        dataThree = new int[(int) (original.length * .6)];
+        dataFour = new int[(int) (original.length * .8)];
+        dataFive = new int[original.length];
 
         for (int i = 0; i < original.length; i++) {
             if (i < dataOne.length) {
-                dataOne[i] = Math.sin(i) + 1;
-                dataTwo[i] = Math.sin(i) + 1;
-                dataThree[i] = Math.sin(i) + 1;
-                dataFour[i] = Math.sin(i) + 1;
-                dataFive[i] = Math.sin(i) + 1;
+                dataOne[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataTwo[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataThree[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataFour[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
             }
             else if (i < dataTwo.length) {
-                dataTwo[i] = Math.sin(i) + 1;
-                dataThree[i] = Math.sin(i) + 1;
-                dataFour[i] = Math.sin(i) + 1;
-                dataFive[i] = Math.sin(i) + 1;
+                dataTwo[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataThree[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataFour[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
             }
             else if (i < dataThree.length) {
-                dataThree[i] = Math.sin(i) + 1;
-                dataFour[i] = Math.sin(i) + 1;
-                dataFive[i] = Math.sin(i) + 1;
+                dataThree[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataFour[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
             }
             else if (i < dataFour.length) {
-                dataFour[i] = Math.sin(i) + 1;
-                dataFive[i] = Math.sin(i) + 1;
+                dataFour[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
             } else {
-                dataFive[i] = Math.sin(i) + 1;
+                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
             }
         }
     }
@@ -155,21 +156,21 @@ public class Data {
             try {
                 Scanner in = new Scanner(a);
                 String s = in.next().substring(1);
-                double t = Integer.parseInt(s);
-                ArrayList<Double> data = new ArrayList<>();
+                int t = Integer.parseInt(s);
+                ArrayList<Integer> data = new ArrayList<>();
                 while (in.hasNext()) {
-                    data.add((double) Integer.parseInt(in.next()));
+                    data.add(Integer.parseInt(in.next()));
                 }
-                original = data.stream().mapToDouble(i -> i).toArray();
+                original = data.stream().mapToInt(i -> i).toArray();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        dataOne = new double[(int) (original.length * .2)];
-        dataTwo = new double[(int) (original.length * .4)];
-        dataThree = new double[(int) (original.length * .6)];
-        dataFour = new double[(int) (original.length * .8)];
-        dataFive = new double[original.length];
+        dataOne = new int[(int) (original.length * .2)];
+        dataTwo = new int[(int) (original.length * .4)];
+        dataThree = new int[(int) (original.length * .6)];
+        dataFour = new int[(int) (original.length * .8)];
+        dataFive = new int[original.length];
 
         for (int i = 0; i < original.length; i++) {
             if (i < dataOne.length) {
@@ -230,13 +231,14 @@ public class Data {
     /**
      * Implementation of insertion sort.
      * @return the sorted array of data
+     * @param input
      */
-    public double[] insertionSort(double[] input) {
+    public int[] insertionSort(int[] input) {
         int i = 1;
         while (i < input.length) {
             int j = i;
             while (j > 0 && input[j - 1] > input[j]) {
-                double temp = input[j];
+                int temp = input[j];
                 input[j] = input[j-1];
                 input[j-1] = temp;
                 j--;
@@ -250,7 +252,7 @@ public class Data {
      * Implementation of selection sort.
      * @return the sorted array of data
      */
-    public double[] selectionSort(double[] input, int stop) {
+    public int[] selectionSort(int[] input, int stop) {
         int x = 0;
         for (int i = 0; i < input.length - 1; i++) {
             if (x > stop)
@@ -262,7 +264,7 @@ public class Data {
                     min = j;
             }
             if (min != i) {
-                double temp = input[i];
+                int temp = input[i];
                 input[i] = input[min];
                 input[min] = temp;
             }
@@ -273,14 +275,15 @@ public class Data {
     /**
      * Implementation of bubble sort
      * @return the sorted array of data
+     * @param input
      */
-    public double[] bubbleSort(double[] input) {
+    public int[] bubbleSort(int[] input) {
         boolean swap = true;
         while (swap) {
             swap = false;
             for (int i = 1; i < input.length; i++) {
                 if (input[i - 1] > input[i]) {
-                    double temp = input[i];
+                    int temp = input[i];
                     input[i] = input[i-1];
                     input[i-1] = temp;
                     swap = true;
@@ -293,14 +296,15 @@ public class Data {
     /**
      * Implementation of merge sort
      * @return the sorted array of data
+     * @param input
      */
 
-    public double[] mergeSort(double[] input) {
+    public int[] mergeSort(int[] input) {
         if (input.length <= 1)
             return input;
 
-        double[] left;
-        double[] right;
+        int[] left;
+        int[] right;
         left = Arrays.copyOfRange(input, 0, input.length / 2);
         right = Arrays.copyOfRange(input, input.length / 2, input.length);
 
@@ -311,8 +315,8 @@ public class Data {
         return merge(left, right);
     }
 
-    private double[] merge(double[] left, double[] right) {
-        double[] result = new double[left.length + right.length];
+    private int[] merge(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
         int i = 0, j = 0;
         while (i < left.length && j < right.length) {
             if (left[i] > right[j]) {
@@ -338,7 +342,7 @@ public class Data {
      * Implementation of quick sort
      * @return the sorted array of data
      */
-    public void quickSort(double[] array, int low, int high) {
+    public void quickSort(int[] array, int low, int high) {
         if (low < high) {
             int pivot = partition(array, low, high);
             quickSort(array, low, pivot);
@@ -346,20 +350,20 @@ public class Data {
         }
     }
 
-    private int partition(double[] array, int low, int high) {
-        double pivot = array[low];
+    private int partition(int[] array, int low, int high) {
+        int pivot = array[low];
         int left = low;
 
         for (int i = low + 1; i < high; i++) {
             if (array[i] < pivot) {
+                int temp = array[i];
+                array[i] = array[left+1];
+                array[left+1] = temp;
                 left++;
-                double temp = array[i];
-                array[i] = array[left];
-                array[left] = temp;
             }
         }
 
-        double temp = array[left];
+        int temp = array[left];
         array[left] = array[low];
         array[low] = temp;
 
