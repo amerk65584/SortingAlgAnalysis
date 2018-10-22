@@ -60,12 +60,11 @@ public class Data {
                     original[i] = original.length - i;
                 }
                 genRevSynth();
-                quickSort(dataOne, 0, dataOne.length);
                 break;
             case 2:
                 original = new int[100000];
                 for (int i = 0; i < original.length; i++) {
-                    original[i] = (int) (2 * Math.pow(i, 2) - i);
+                    original[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
                 }
                 genSin();
                 break;
@@ -124,28 +123,28 @@ public class Data {
 
         for (int i = 0; i < original.length; i++) {
             if (i < dataOne.length) {
-                dataOne[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataTwo[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataThree[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataFour[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataOne[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataTwo[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataThree[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataFour[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataFive[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
             }
             else if (i < dataTwo.length) {
-                dataTwo[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataThree[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataFour[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataTwo[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataThree[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataFour[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataFive[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
             }
             else if (i < dataThree.length) {
-                dataThree[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataFour[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataThree[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataFour[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataFive[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
             }
             else if (i < dataFour.length) {
-                dataFour[i] = (int) (2 * Math.pow(i, 2) - i);
-                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataFour[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
+                dataFive[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
             } else {
-                dataFive[i] = (int) (2 * Math.pow(i, 2) - i);
+                dataFive[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
             }
         }
     }
@@ -211,6 +210,7 @@ public class Data {
         selectionSort(copyTwo, (int) (copyTwo.length * .4));
         selectionSort(copyThree, (int) (copyThree.length * .6));
         selectionSort(copyFour, (int) (copyFour.length * .8));
+        selectionSort(copyFive);
     }
 
     public void print() {
@@ -258,6 +258,26 @@ public class Data {
             if (x > stop)
                 break;
             x++;
+            int min = i;
+            for (int j = i + 1; j < input.length; j++) {
+                if (input[j] < input[min])
+                    min = j;
+            }
+            if (min != i) {
+                int temp = input[i];
+                input[i] = input[min];
+                input[min] = temp;
+            }
+        }
+        return input;
+    }
+
+    /**
+     * Implementation of selection sort.
+     * @return the sorted array of data
+     */
+    public int[] selectionSort(int[] input) {
+        for (int i = 0; i < input.length - 1; i++) {
             int min = i;
             for (int j = i + 1; j < input.length; j++) {
                 if (input[j] < input[min])
@@ -339,34 +359,100 @@ public class Data {
     }
 
     /**
-     * Implementation of quick sort
-     * @return the sorted array of data
+     * Method for swapping elements at an index.
+     *
+     * @param index1 index of first element
+     * @param index2 index of second element
      */
-    public void quickSort(int[] array, int low, int high) {
-        if (low < high) {
-            int pivot = partition(array, low, high);
-            quickSort(array, low, pivot);
-            quickSort(array, pivot + 1, high);
-        }
+    private void swapReferences(int[] array, int index1, int index2) {
+        int temp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = temp;
     }
 
-    private int partition(int[] array, int low, int high) {
-        int pivot = array[low];
-        int left = low;
+    /**
+     * Recursive quick sort method.
+     *
+     * @param low left-most index of sub-array
+     * @param high right-most index of sub-array
+     */
+    public void quickSort(int[] array, int low, int high) {
 
-        for (int i = low + 1; i < high; i++) {
-            if (array[i] < pivot) {
-                int temp = array[i];
-                array[i] = array[left+1];
-                array[left+1] = temp;
-                left++;
+        // Calculate number of elements
+        int numElements = high - low + 1;
+
+        if (numElements == 1) {        // If only 1 element
+            // Do nothing since ordered with itself
+        } else if (numElements == 2) { // If only 2 elements
+            if (array[high] < array[low]) {
+                swapReferences(array, low, high);
             }
+        } else if (numElements == 3) { // If only 3 elements
+
+            // Get middle index
+            int middle = (low + high) / 2;
+
+            // Sort the elements at low, middle, high indices
+            if (array[middle] < array[low]) {
+                swapReferences(array, low, middle);
+            }
+            if (array[high] < array[low]) {
+                swapReferences(array, low, high);
+            }
+            if (array[high] < array[middle]) {
+                swapReferences(array, middle, high);
+            }
+        } else {
+
+            // Get middle index
+            int middle = (low + high) / 2;
+
+            // Sort the elements at low, middle, high indices
+            if (array[middle] < array[low]) {
+                swapReferences(array, low, middle);
+            }
+            if (array[high] < array[low]) {
+                swapReferences(array, low, high);
+            }
+            if (array[high] < array[middle]) {
+                swapReferences(array, middle, high);
+            }
+
+            // Move pivot to left of element at high index
+            swapReferences(array, middle, high - 1);
+
+            // Temporary storage of pivot element for comparing
+            int pivot = array[high - 1];
+
+            // Partition
+            int i, j;
+            for (i = low, j = high - 1; ; ) {
+
+                // Start incrementing from left until find element larger
+                while (array[++i] < pivot) {
+                    ; // Just keep comparing
+                }
+
+                // Start decrementing from right until find element smaller
+                while (pivot < array[--j]) {
+                    ; // Just keep comparing
+                }
+
+                // Stop if i and j cross
+                if (i >= j) {
+                    break;
+                }
+
+                // Swap elements if i and j stop without crossing
+                swapReferences(array, i, j);
+            }
+
+            // Put pivot in correct location, which is where i is at the time i and j cross
+            swapReferences(array, i, high - 1);
+
+            // Repeat on either side of the pivot
+            quickSort(array, low, i - 1);
+            quickSort(array, i + 1, high);
         }
-
-        int temp = array[left];
-        array[left] = array[low];
-        array[low] = temp;
-
-        return left;
     }
 }
