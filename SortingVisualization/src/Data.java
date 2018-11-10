@@ -19,21 +19,11 @@ public class Data {
     private int[] census;
     private int[] weather;
 
-    private Runtime memory;
-
-    public long iMem;
-    public long sMem;
-    public long bMem;
-    public long mMem;
-    public long qMem;
-    public long baseMem = Runtime.getRuntime().totalMemory();
-
     /**
      * Makes calls to construct and fill data sets with values and perform the experiments.
      */
-    public Data(int choice) {
+    public Data() {
         super();
-        memory = Runtime.getRuntime();
         revSorted = new int[100000];
         for (int i = 0; i < revSorted.length; i++) {
             revSorted[i] = revSorted.length - i;
@@ -47,6 +37,7 @@ public class Data {
         weather = new int[100000];
         readFileOne("Data/USCensusWA_wage_100k.csv", census);
         readFileOne("Data/Weather_100k.csv", weather);
+
     }
 
     public void readFileOne(String file, int[] array) {
@@ -73,7 +64,6 @@ public class Data {
      * @param input
      */
     public int[] insertionSort(int[] input) {
-        iMem += (memory.totalMemory() - memory.freeMemory());
         int i = 1;
         while (i < input.length) {
             int j = i;
@@ -117,7 +107,6 @@ public class Data {
      * @return the sorted array of data
      */
     public int[] selectionSort(int[] input) {
-        sMem += (memory.totalMemory() - memory.freeMemory());
         for (int i = 0; i < input.length - 1; i++) {
             int min = i;
             for (int j = i + 1; j < input.length; j++) {
@@ -139,7 +128,6 @@ public class Data {
      * @param input
      */
     public int[] bubbleSort(int[] input) {
-        bMem += (memory.totalMemory() - memory.freeMemory());
         boolean swap = true;
         while (swap) {
             swap = false;
@@ -162,7 +150,6 @@ public class Data {
      */
 
     public int[] mergeSort(int[] input) {
-        mMem += (memory.totalMemory() - memory.freeMemory());
         if (input.length <= 1)
             return input;
 
@@ -220,7 +207,6 @@ public class Data {
      * @param high right-most index of sub-array
      */
     public void quickSort(int[] array, int low, int high) {
-        qMem += (memory.totalMemory() - memory.freeMemory());
         // Calculate number of elements
         int numElements = high - low + 1;
 
