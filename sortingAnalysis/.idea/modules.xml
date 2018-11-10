@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../SortingVisualization/SortingVisualization.iml" filepath="$PROJECT_DIR$/../SortingVisualization/SortingVisualization.iml" />
       <module fileurl="file://$PROJECT_DIR$/sortingAnalysis.iml" filepath="$PROJECT_DIR$/sortingAnalysis.iml" />
     </modules>
   </component>
