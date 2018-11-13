@@ -1,3 +1,5 @@
+package test;
+
 public class test {
     public static void main(String[] args) {
         Runtime i = Runtime.getRuntime();

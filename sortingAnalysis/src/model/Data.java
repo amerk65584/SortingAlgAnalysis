@@ -1,7 +1,10 @@
+package model;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -63,34 +66,41 @@ public class Data {
     /**
      * Makes calls to construct and fill data sets with values and perform the experiments.
      */
-    public Data(int choice) {
+    public Data(DataTypes theType) {
         super();
         memory = Runtime.getRuntime();
-        switch (choice) {
-            case 1:
+        switch (theType) {
+            case REVERSE:
                 original = new int[100000];
                 for (int i = 0; i < original.length; i++) {
                     original[i] = original.length - i;
                 }
                 genRevSynth();
                 break;
-            case 2:
+            case PERIODIC:
                 original = new int[100000];
                 for (int i = 0; i < original.length; i++) {
                     original[i] = (int) (Math.floor(Math.sin(i) * Math.pow(i, 3)) + Math.ceil(Math.cos(i) * Math.pow(i, 2)));
                 }
                 genSin();
                 break;
-            case 3:
-                readFileOne("Data/USCensusWA_wage_100k.csv");
+            case CENSUS:
+                readFileOne("model.Data/USCensusWA_wage_100k.csv");
                 break;
-            case 4:
-                readFileOne("Data/Weather_100k.csv");
+            case WEATHER:
+                readFileOne("model.Data/Weather_100k.csv");
+                break;
+            case RANDOM:
+                original = new int[100000];
+                Random rand = new Random();
+                for (int i = 0; i < original.length; i++) {
+                    original[i] = rand.nextInt(100);
+                }
                 break;
             default:
                 break;
         }
-        semiSort();
+        //semiSort();
     }
 
     public void genRevSynth() {
@@ -248,7 +258,7 @@ public class Data {
      * @param input
      */
     public int[] insertionSort(int[] input) {
-        iMem += (memory.totalMemory() - memory.freeMemory());
+        //iMem += (memory.totalMemory() - memory.freeMemory());
         int i = 1;
         while (i < input.length) {
             int j = i;
@@ -292,7 +302,7 @@ public class Data {
      * @return the sorted array of data
      */
     public int[] selectionSort(int[] input) {
-        sMem += (memory.totalMemory() - memory.freeMemory());
+        //sMem += (memory.totalMemory() - memory.freeMemory());
         for (int i = 0; i < input.length - 1; i++) {
             int min = i;
             for (int j = i + 1; j < input.length; j++) {
@@ -314,7 +324,7 @@ public class Data {
      * @param input
      */
     public int[] bubbleSort(int[] input) {
-        bMem += (memory.totalMemory() - memory.freeMemory());
+        //bMem += (memory.totalMemory() - memory.freeMemory());
         boolean swap = true;
         while (swap) {
             swap = false;
@@ -337,7 +347,7 @@ public class Data {
      */
 
     public int[] mergeSort(int[] input) {
-        mMem += (memory.totalMemory() - memory.freeMemory());
+        //mMem += (memory.totalMemory() - memory.freeMemory());
         if (input.length <= 1)
             return input;
 
@@ -395,7 +405,7 @@ public class Data {
      * @param high right-most index of sub-array
      */
     public void quickSort(int[] array, int low, int high) {
-        qMem += (memory.totalMemory() - memory.freeMemory());
+        //qMem += (memory.totalMemory() - memory.freeMemory());
         // Calculate number of elements
         int numElements = high - low + 1;
 

@@ -1,9 +1,10 @@
+package model;
+
+import model.Data;
+
 import java.io.*;
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+
+import static model.DataTypes.*;
 
 /**
  * Main driver for our sorting algorithms.
@@ -37,20 +38,20 @@ public class ExperimentDriver {
     }
 
     private static void runTime_dataSize() {
-        dataSize(1, "reverse");
+        dataSize(REVERSE, "reverse");
         System.out.println(results.toString());
         run.gc();
-        dataSize(2, "2x^2 - x");
+        dataSize(PERIODIC, "2x^2 - x");
         System.out.println(results.toString());
         run.gc();
-        dataSize(3, "census");
+        dataSize(CENSUS, "census");
         System.out.println(results.toString());
         run.gc();
-        dataSize(4, "weather");
+        dataSize(WEATHER, "weather");
         System.out.println(results.toString());
         run.gc();
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("Data/Results.csv"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("model.Data/Results.csv"));
             writer.write(results.toString());
             writer.close();
         } catch (IOException e) {
@@ -58,8 +59,8 @@ public class ExperimentDriver {
         }
     }
 
-    private static void dataSize(int dataSet, String data_set) {
-        data = new Data(dataSet);
+    private static void dataSize(DataTypes theType, String data_set) {
+        data = new Data(theType);
         baseline = runtime1 = runtime2 = runtime3 = runtime4 = runtime5 = runtime6 = runtime7 = runtime8 = runtime9 = runtime10 = 0;
         data.iMem = data.sMem = data.bMem = data.mMem = data.qMem = 0;
         for (int i = 0; i < 5; i++) {
@@ -120,7 +121,7 @@ public class ExperimentDriver {
         results.append("\n");
         results.append("\n");
 
-        data = new Data(dataSet);
+        data = new Data(theType);
         baseline = runtime1 = runtime2 = runtime3 = runtime4 = runtime5 = runtime6 = runtime7 = runtime8 = runtime9 = runtime10 = 0;
         data.iMem = data.sMem = data.bMem = data.mMem = data.qMem = 0;
         for (int i = 0; i < 5; i++) {
@@ -181,7 +182,7 @@ public class ExperimentDriver {
         results.append("\n");
         results.append("\n");
 
-        data = new Data(dataSet);
+        data = new Data(theType);
         baseline = runtime1 = runtime2 = runtime3 = runtime4 = runtime5 = runtime6 = runtime7 = runtime8 = runtime9 = runtime10 = 0;
         data.iMem = data.sMem = data.bMem = data.mMem = data.qMem = 0;
         for (int i = 0; i < 5; i++) {
@@ -242,7 +243,7 @@ public class ExperimentDriver {
         results.append("\n");
         results.append("\n");
 
-        data = new Data(dataSet);
+        data = new Data(theType);
         baseline = runtime1 = runtime2 = runtime3 = runtime4 = runtime5 = runtime6 = runtime7 = runtime8 = runtime9 = runtime10 = 0;
         data.iMem = data.sMem = data.bMem = data.mMem = data.qMem = 0;
         for (int i = 0; i < 5; i++) {
@@ -303,7 +304,7 @@ public class ExperimentDriver {
         results.append("\n");
         results.append("\n");
 
-        data = new Data(dataSet);
+        data = new Data(theType);
         baseline = runtime1 = runtime2 = runtime3 = runtime4 = runtime5 = runtime6 = runtime7 = runtime8 = runtime9 = runtime10 = 0;
         data.iMem = data.sMem = data.bMem = data.mMem = data.qMem = 0;
         for (int i = 0; i < 5; i++) {
