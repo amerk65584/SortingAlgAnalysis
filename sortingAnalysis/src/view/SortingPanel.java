@@ -262,56 +262,6 @@ public class SortingPanel extends JPanel implements ActionListener {
     }
 
     /**
-     * Method to start Mergesort.
-     */
-    public void startMergeSort(){
-        mergeSort(original);
-    }
-
-    /**
-     * Implementation of merge sort
-     * @return the sorted array of data
-     * @param input the array
-     */
-    public int[] mergeSort(int[] input) {
-        if (input.length <= 1)
-            return input;
-
-        int[] left;
-        int[] right;
-        left = Arrays.copyOfRange(input, 0, input.length / 2);
-        right = Arrays.copyOfRange(input, input.length / 2, input.length);
-
-        left = mergeSort(left);
-        right = mergeSort(right);
-
-        return merge(left, right);
-    }
-
-    private int[] merge(int[] left, int[] right) {
-        int[] result = new int[left.length + right.length];
-        int i = 0, j = 0;
-        while (i < left.length && j < right.length) {
-            if (left[i] > right[j]) {
-                result[i + j] = right[j];
-                j++;
-            } else {
-                result[i + j] = left[i];
-                i++;
-            }
-        }
-        while (i < left.length) {
-            result[i + j] = left[i];
-            i++;
-        }
-        while (j < right.length) {
-            result[i + j] = right[j];
-            j++;
-        }
-        return result;
-    }
-
-    /**
      * Method for swapping elements at an index.
      *
      * @param index1 index of first element
@@ -416,5 +366,117 @@ public class SortingPanel extends JPanel implements ActionListener {
             quickSort(i + 1, high);
         }
         replaySort();
+    }
+
+    /* In-place Mergesort */
+
+    /**
+     * Method to start Mergesort.
+     * Pseudocode for this algorithm from Elementary Algorithms by Larry LIU Xinyu.
+     */
+    public void startMergeSort(){
+        mergeSort(original, 0, original.length );
+        myDataSteps.add(original.clone());
+        replaySort();
+    }
+
+    /**
+     * Mergesort in place, part 1.
+     *
+     * @param theArray the array to sort
+     * @param lower the lower bound index
+     * @param upper the upper bound index
+     */
+    private void mergeSort(int[] theArray, int lower, int upper){
+        if (upper - lower > 1) {
+            int mid = lower + (upper - lower)/2;
+            int work = lower + upper - mid;
+            mergeSortAlso(theArray, lower, mid, work);
+            while (work - lower > 1){
+                int nUpper = work;
+                work = lower + (nUpper - lower + 1)/2;
+                mergeSortAlso(theArray, work, nUpper, lower);
+                merge(theArray, lower, (lower + nUpper - work), nUpper, upper, work);
+            }
+            for (int i = work; i > lower; --i){
+                int j = i;
+                while ((j < upper) && theArray[j] < theArray[j-1]){
+                    int temp = theArray[j];
+                    theArray[j] = theArray[j-1];
+                    theArray[j-1] = temp;
+                    j++;
+                }
+            }
+        }
+    }
+
+    /**
+     * Mergesort in place, part 2.
+     *
+     * @param theArray the array to sort
+     * @param lower the lower bound index
+     * @param upper the upper bound index
+     * @param work the starting index of the work area
+     */
+    private void mergeSortAlso(int[] theArray, int lower, int upper, int work){
+        if (upper - lower > 0){
+            int mid = lower + (upper - lower)/2;
+            mergeSort(theArray, lower, mid);
+            mergeSort(theArray, mid, upper);
+            merge(theArray, lower, mid, mid, upper, work);
+        } else {
+            while (lower <= upper){
+                int temp = theArray[lower];
+                theArray[lower] = theArray[work];
+                theArray[work] = temp;
+                lower++;
+                work++;
+            }
+        }
+    }
+
+    /**
+     * Merge part of mergesort.
+     *
+     * @param theArray the array to sort
+     * @param leftLower the lower left bound index
+     * @param rightLower the lower right bound index
+     * @param leftUpper the upper left bound index
+     * @param rightUpper the upper right bound index
+     * @param work the starting index of the work area
+     */
+    private void merge(int[] theArray, int leftLower, int rightLower, int leftUpper, int rightUpper, int work){
+        while ((leftLower < rightLower) && (leftUpper < rightUpper)) {
+            if (theArray[leftLower] < theArray[leftUpper]){
+                int temp = theArray[leftLower];
+                theArray[leftLower] = theArray[work];
+                theArray[work] = temp;
+                leftLower++;
+                myDataSteps.add(theArray.clone());
+            } else {
+                int temp = theArray[leftUpper];
+                theArray[leftUpper] = theArray[work];
+                theArray[work] = temp;
+                leftUpper++;
+                myDataSteps.add(theArray.clone());
+            }
+            work++;
+        }
+        while (leftLower < rightLower) {
+            int temp = theArray[leftLower];
+            theArray[leftLower] = theArray[work];
+            theArray[work] = temp;
+            leftLower++;
+            work++;
+            myDataSteps.add(theArray.clone());
+        }
+        while (leftUpper < rightUpper) {
+            int temp = theArray[leftUpper];
+            theArray[leftUpper] = theArray[work];
+            theArray[work] = temp;
+            leftUpper++;
+            work++;
+            myDataSteps.add(theArray.clone());
+        }
     }
 }
