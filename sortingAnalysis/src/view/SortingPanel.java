@@ -64,7 +64,7 @@ public class SortingPanel extends JPanel implements ActionListener {
     /* Related to timing */
 
     /* Wait timer to let the visualization print to screen. */
-    private static final int TIMEOUT = 50;
+    private static final int TIMEOUT = 10;
 
     /* Timer for waiting. */
     private Timer myTimer;
@@ -104,6 +104,7 @@ public class SortingPanel extends JPanel implements ActionListener {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
+        int[] comp = new int[2];
         for (int i = 0; i < original.length; i++) {
             // setFrame(upper left x coord, upper left y coord, width, height)
 
@@ -117,8 +118,8 @@ public class SortingPanel extends JPanel implements ActionListener {
             // Outline the rectangle
             g.setPaint(Color.DARK_GRAY);
             g.draw(BLOCK);
-
         }
+
     }
 
     /* Timing */
@@ -214,6 +215,7 @@ public class SortingPanel extends JPanel implements ActionListener {
                 j--;
                 myDataSteps.add(original.clone());
             }
+            //myDataSteps.add(original.clone()); //
             i++;
         }
         replaySort();
@@ -227,6 +229,7 @@ public class SortingPanel extends JPanel implements ActionListener {
         for (int i = 0; i < original.length - 1; i++) {
             int min = i;
             for (int j = i + 1; j < original.length; j++) {
+                myDataSteps.add(original.clone());
                 if (original[j] < original[min])
                     min = j;
             }
@@ -234,7 +237,6 @@ public class SortingPanel extends JPanel implements ActionListener {
                 int temp = original[i];
                 original[i] = original[min];
                 original[min] = temp;
-                myDataSteps.add(original.clone());
             }
         }
         replaySort();
@@ -254,8 +256,9 @@ public class SortingPanel extends JPanel implements ActionListener {
                     original[i] = original[i-1];
                     original[i-1] = temp;
                     swap = true;
-                    myDataSteps.add(original.clone());
+                    //myDataSteps.add(original.clone());
                 }
+                myDataSteps.add(original.clone());
             }
         }
         replaySort();
@@ -375,7 +378,7 @@ public class SortingPanel extends JPanel implements ActionListener {
      * Pseudocode for this algorithm from Elementary Algorithms by Larry LIU Xinyu.
      */
     public void startMergeSort(){
-        mergeSort(original, 0, original.length );
+        mergeSort(0, original.length );
         myDataSteps.add(original.clone());
         replaySort();
     }
@@ -383,27 +386,26 @@ public class SortingPanel extends JPanel implements ActionListener {
     /**
      * Mergesort in place, part 1.
      *
-     * @param theArray the array to sort
      * @param lower the lower bound index
      * @param upper the upper bound index
      */
-    private void mergeSort(int[] theArray, int lower, int upper){
+    private void mergeSort(int lower, int upper){
         if (upper - lower > 1) {
             int mid = lower + (upper - lower)/2;
             int work = lower + upper - mid;
-            mergeSortAlso(theArray, lower, mid, work);
+            mergeSortAlso(lower, mid, work);
             while (work - lower > 1){
                 int nUpper = work;
                 work = lower + (nUpper - lower + 1)/2;
-                mergeSortAlso(theArray, work, nUpper, lower);
-                merge(theArray, lower, (lower + nUpper - work), nUpper, upper, work);
+                mergeSortAlso(work, nUpper, lower);
+                merge(lower, (lower + nUpper - work), nUpper, upper, work);
             }
             for (int i = work; i > lower; --i){
                 int j = i;
-                while ((j < upper) && theArray[j] < theArray[j-1]){
-                    int temp = theArray[j];
-                    theArray[j] = theArray[j-1];
-                    theArray[j-1] = temp;
+                while ((j < upper) && original[j] < original[j-1]){
+                    int temp = original[j];
+                    original[j] = original[j-1];
+                    original[j-1] = temp;
                     j++;
                 }
             }
@@ -413,22 +415,21 @@ public class SortingPanel extends JPanel implements ActionListener {
     /**
      * Mergesort in place, part 2.
      *
-     * @param theArray the array to sort
      * @param lower the lower bound index
      * @param upper the upper bound index
      * @param work the starting index of the work area
      */
-    private void mergeSortAlso(int[] theArray, int lower, int upper, int work){
+    private void mergeSortAlso(int lower, int upper, int work){
         if (upper - lower > 0){
             int mid = lower + (upper - lower)/2;
-            mergeSort(theArray, lower, mid);
-            mergeSort(theArray, mid, upper);
-            merge(theArray, lower, mid, mid, upper, work);
+            mergeSort(lower, mid);
+            mergeSort(mid, upper);
+            merge(lower, mid, mid, upper, work);
         } else {
             while (lower <= upper){
-                int temp = theArray[lower];
-                theArray[lower] = theArray[work];
-                theArray[work] = temp;
+                int temp = original[lower];
+                original[lower] = original[work];
+                original[work] = temp;
                 lower++;
                 work++;
             }
@@ -438,45 +439,44 @@ public class SortingPanel extends JPanel implements ActionListener {
     /**
      * Merge part of mergesort.
      *
-     * @param theArray the array to sort
      * @param leftLower the lower left bound index
      * @param rightLower the lower right bound index
      * @param leftUpper the upper left bound index
      * @param rightUpper the upper right bound index
      * @param work the starting index of the work area
      */
-    private void merge(int[] theArray, int leftLower, int rightLower, int leftUpper, int rightUpper, int work){
+    private void merge(int leftLower, int rightLower, int leftUpper, int rightUpper, int work){
         while ((leftLower < rightLower) && (leftUpper < rightUpper)) {
-            if (theArray[leftLower] < theArray[leftUpper]){
-                int temp = theArray[leftLower];
-                theArray[leftLower] = theArray[work];
-                theArray[work] = temp;
+            if (original[leftLower] < original[leftUpper]){
+                int temp = original[leftLower];
+                original[leftLower] = original[work];
+                original[work] = temp;
                 leftLower++;
-                myDataSteps.add(theArray.clone());
+                myDataSteps.add(this.original.clone());
             } else {
-                int temp = theArray[leftUpper];
-                theArray[leftUpper] = theArray[work];
-                theArray[work] = temp;
+                int temp = original[leftUpper];
+                original[leftUpper] = original[work];
+                original[work] = temp;
                 leftUpper++;
-                myDataSteps.add(theArray.clone());
+                myDataSteps.add(this.original.clone());
             }
             work++;
         }
         while (leftLower < rightLower) {
-            int temp = theArray[leftLower];
-            theArray[leftLower] = theArray[work];
-            theArray[work] = temp;
+            int temp = original[leftLower];
+            original[leftLower] = original[work];
+            original[work] = temp;
             leftLower++;
             work++;
-            myDataSteps.add(theArray.clone());
+            myDataSteps.add(this.original.clone());
         }
         while (leftUpper < rightUpper) {
-            int temp = theArray[leftUpper];
-            theArray[leftUpper] = theArray[work];
-            theArray[work] = temp;
+            int temp = original[leftUpper];
+            original[leftUpper] = original[work];
+            original[work] = temp;
             leftUpper++;
             work++;
-            myDataSteps.add(theArray.clone());
+            myDataSteps.add(this.original.clone());
         }
     }
 }
