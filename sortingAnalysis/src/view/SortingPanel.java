@@ -225,18 +225,20 @@ public class SortingPanel extends JPanel implements ActionListener {
      * Implementation of selection sort.
      */
     public void selectionSort() {
-        myDataSteps.add(original.clone());
+        //myDataSteps.add(original.clone());
         for (int i = 0; i < original.length - 1; i++) {
             int min = i;
             for (int j = i + 1; j < original.length; j++) {
                 myDataSteps.add(original.clone());
-                if (original[j] < original[min])
+                if (original[j] < original[min]) {
                     min = j;
+                }
             }
             if (min != i) {
                 int temp = original[i];
                 original[i] = original[min];
                 original[min] = temp;
+                myDataSteps.add(original.clone());
             }
         }
         replaySort();
